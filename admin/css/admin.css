@@ -47,11 +47,41 @@ span.required { color: var(--wpec-danger); }
 .wpec-settings-body { background: #fff; border: 1px solid #c3c4c7; border-top: none; padding: 1.5rem; }
 
 /* ---------- Template picker ---------- */
-.wpec-template-grid { display: flex; gap: 1rem; flex-wrap: wrap; }
-.wpec-template-card { display: flex; flex-direction: column; align-items: center; gap: .5rem; cursor: pointer; padding: .75rem; border: 2px solid var(--wpec-border); border-radius: 8px; transition: border-color .2s; }
+.wpec-template-grid { display: flex; gap: 1.25rem; flex-wrap: wrap; margin-top: .5rem; }
+.wpec-template-card { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: .5rem; 
+    cursor: pointer; 
+    padding: .85rem; 
+    border: 2px solid var(--wpec-border); 
+    border-radius: 8px; 
+    background: #fff;
+    transition: border-color .2s, box-shadow .2s, transform .1s; 
+    position: relative;
+    user-select: none;
+}
+.wpec-template-card:hover { 
+    border-color: #93c5fd; 
+    transform: translateY(-1px);
+}
 .wpec-template-card input { display: none; }
-.wpec-template-card.active, .wpec-template-card:has(input:checked) { border-color: var(--wpec-primary); }
-.wpec-template-thumb { width: 120px; height: 80px; border-radius: 4px; }
+.wpec-template-card:has(input:checked),
+.wpec-template-card.active:not(:has(input:not(:checked))) { 
+    border-color: var(--wpec-primary) !important; 
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+}
+.wpec-template-card:has(input:not(:checked)) { 
+    border-color: var(--wpec-border); 
+    box-shadow: none;
+}
+.wpec-template-card:has(input:checked) span,
+.wpec-template-card.active:not(:has(input:not(:checked))) span {
+    font-weight: 700;
+    color: var(--wpec-primary);
+}
+.wpec-template-thumb { width: 120px; height: 80px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
 .wpec-tpl-classic  { background: linear-gradient(135deg, #3b82f6 0%, #93c5fd 100%); }
 .wpec-tpl-modern   { background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%); }
 .wpec-tpl-minimal  { background: linear-gradient(135deg, #6b7280 0%, #d1d5db 100%); }

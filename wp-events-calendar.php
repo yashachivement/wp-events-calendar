@@ -3,7 +3,7 @@
  * Plugin Name:       WP Events Calendar – Event Management & Booking by Yash
  * Plugin URI:        https://github.com/yashachivement/wp-events-calendar
  * Description:       A powerful, modern WordPress events calendar plugin featuring booking & ticket capacity, PayPal & Stripe payment gateways, Google Calendar 2-way sync, 6 calendar views, 3 templates, and import/export.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Requires at least: 6.0
  * Requires PHP:      8.3
  * Author:            Yash
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin constants
-define( 'WPEC_VERSION',      '1.0.0' );
+define( 'WPEC_VERSION',      '1.0.1' );
 define( 'WPEC_PLUGIN_FILE',  __FILE__ );
 define( 'WPEC_PLUGIN_DIR',   plugin_dir_path( __FILE__ ) );
 define( 'WPEC_PLUGIN_URL',   plugin_dir_url( __FILE__ ) );

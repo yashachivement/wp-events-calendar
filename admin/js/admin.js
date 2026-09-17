@@ -158,4 +158,21 @@
         window.location = wpecAdmin.ajaxUrl + '?action=wpec_export_ical&nonce=' + wpecAdmin.nonce;
     });
 
+    // ------------------------------------------------------------------
+    // Template selection cards
+    // ------------------------------------------------------------------
+    $(document).on('click', '.wpec-template-card', function () {
+        $('.wpec-template-card').removeClass('active');
+        $(this).addClass('active');
+        var $radio = $(this).find('input[type="radio"]');
+        if (!$radio.prop('checked')) {
+            $radio.prop('checked', true).trigger('change');
+        }
+    });
+
+    $(document).on('change', 'input[name="wpec_calendar_template"]', function () {
+        $('.wpec-template-card').removeClass('active');
+        $(this).closest('.wpec-template-card').addClass('active');
+    });
+
 })(jQuery);

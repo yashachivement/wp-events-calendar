@@ -41,12 +41,21 @@ class WPEC_Admin {
     // ------------------------------------------------------------------
     public static function enqueue_scripts( string $hook ): void {
         $wpec_pages = [
-            'toplevel_page_wpec-events', 'events-calendar_page_wpec-organizers',
-            'events-calendar_page_wpec-bookings', 'events-calendar_page_wpec-import-export',
-            'events-calendar_page_wpec-settings', 'events-calendar_page_wpec-shortcode',
+            'toplevel_page_wpec-events',
+            'events-calendar_page_wpec-organizers', 'events-calendar_page_wpec-bookings',
+            'events-calendar_page_wpec-import-export', 'events-calendar_page_wpec-settings',
+            'events-calendar_page_wpec-shortcode',
+            'wpec-events_page_wpec-organizers', 'wpec-events_page_wpec-bookings',
+            'wpec-events_page_wpec-import-export', 'wpec-events_page_wpec-settings',
+            'wpec-events_page_wpec-shortcode',
         ];
 
-        if ( ! in_array( $hook, $wpec_pages, true ) && ! in_array( get_current_screen()?->post_type, [ 'wpec_event' ], true ) ) return;
+        $page = sanitize_key( $_GET['page'] ?? '' );
+        $is_wpec_page = in_array( $hook, $wpec_pages, true )
+            || str_starts_with( $page, 'wpec-' )
+            || in_array( get_current_screen()?->post_type, [ 'wpec_event' ], true );
+
+        if ( ! $is_wpec_page ) return;
 
         wp_enqueue_style( 'wpec-admin', WPEC_PLUGIN_URL . 'admin/css/admin.css', [], WPEC_VERSION );
         wp_enqueue_script( 'wpec-admin', WPEC_PLUGIN_URL . 'admin/js/admin.js', [ 'jquery' ], WPEC_VERSION, true );

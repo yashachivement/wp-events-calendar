@@ -5,7 +5,7 @@ Tags: events, calendar, event calendar, booking, tickets, stripe, paypal, google
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.3
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -69,10 +69,18 @@ Yes — copy `public/views/single-event.php` to your theme's `wpec/single-event.
 
 == Changelog ==
 
+= 1.0.1 =
+* Fix: Display settings tab rendering and template selection card active states
+* Fix: Prevent checkbox settings overwrite across different settings tabs
+* Feature: Added event slug customization, comments toggle, and element visibility controls
+
 = 1.0.0 =
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Fixes display settings and template card selection.
 
 = 1.0.0 =
 Initial release.
