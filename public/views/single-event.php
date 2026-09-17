@@ -188,6 +188,7 @@ while ( have_posts() ) : the_post();
             <?php endif; ?>
 
             <!-- Add to Calendar -->
+            <?php if ( get_option( 'wpec_show_add_to_calendar', true ) ) : ?>
             <div class="wpec-sidebar-card wpec-add-to-cal">
                 <h3><?php esc_html_e( 'Add to Calendar', 'wp-events-calendar' ); ?></h3>
                 <?php
@@ -211,6 +212,7 @@ while ( have_posts() ) : the_post();
                     </a>
                 </div>
             </div>
+            <?php endif; ?>
 
             <!-- Tickets available -->
             <?php

@@ -25,10 +25,67 @@
     <form method="post" action="">
         <?php wp_nonce_field( 'wpec_settings_save' ); ?>
         <input type="hidden" name="wpec_save_settings" value="1" />
+        <input type="hidden" name="wpec_current_tab" value="<?php echo esc_attr( $tab ); ?>" />
 
         <div class="wpec-settings-body">
 
         <?php if ( $tab === 'general' ) : ?>
+            <table class="form-table">
+                <tr>
+                    <th><?php esc_html_e( 'Events Base Slug', 'wp-events-calendar' ); ?></th>
+                    <td>
+                        <input type="text" name="wpec_event_slug" value="<?php echo esc_attr( $settings['event_slug'] ); ?>" class="regular-text" placeholder="event" />
+                        <p class="description"><?php esc_html_e( 'The URL slug used for individual events (e.g., example.com/event/your-event-name). Default is "event".', 'wp-events-calendar' ); ?></p>
+                    </td>
+                </tr>
+                <tr>
+                    <th><?php esc_html_e( 'Main Events Page', 'wp-events-calendar' ); ?></th>
+                    <td>
+                        <?php
+                        wp_dropdown_pages( [
+                            'name'              => 'wpec_events_page_id',
+                            'selected'          => $settings['events_page_id'],
+                            'show_option_none'  => __( '— Select a Page —', 'wp-events-calendar' ),
+                            'option_none_value' => '0',
+                        ] );
+                        ?>
+                        <?php if ( $settings['events_page_id'] && get_permalink( $settings['events_page_id'] ) ) : ?>
+                            <a href="<?php echo esc_url( get_permalink( $settings['events_page_id'] ) ); ?>" target="_blank" class="button button-secondary" style="margin-left:8px;"><?php esc_html_e( 'View Page ↗', 'wp-events-calendar' ); ?></a>
+                        <?php endif; ?>
+                        <p class="description"><?php esc_html_e( 'Select the primary page where your events calendar is placed.', 'wp-events-calendar' ); ?></p>
+                    </td>
+                </tr>
+                <tr>
+                    <th><?php esc_html_e( 'Past Events', 'wp-events-calendar' ); ?></th>
+                    <td>
+                        <label>
+                            <input type="checkbox" name="wpec_show_past_events" value="1" <?php checked( $settings['show_past_events'] ); ?> />
+                            <?php esc_html_e( 'Show past events in calendar and archives', 'wp-events-calendar' ); ?>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <th><?php esc_html_e( 'Comments', 'wp-events-calendar' ); ?></th>
+                    <td>
+                        <label>
+                            <input type="checkbox" name="wpec_enable_comments" value="1" <?php checked( $settings['enable_comments'] ); ?> />
+                            <?php esc_html_e( 'Allow comments on event pages', 'wp-events-calendar' ); ?>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <th><?php esc_html_e( 'Shortcode Quick Helper', 'wp-events-calendar' ); ?></th>
+                    <td>
+                        <div style="background:#f9fafb; border:1px solid #e5e7eb; border-radius:8px; padding:12px 16px; max-width:600px;">
+                            <p style="margin:0 0 8px 0;"><strong><?php esc_html_e( 'Embed Calendar:', 'wp-events-calendar' ); ?></strong> <code>[wpec_calendar]</code></p>
+                            <p style="margin:0 0 8px 0;"><strong><?php esc_html_e( 'Upcoming Events List:', 'wp-events-calendar' ); ?></strong> <code>[wpec_events_list limit="5"]</code></p>
+                            <p style="margin:0; font-size:12px; color:#6b7280;"><?php esc_html_e( 'Paste these shortcodes on any page, post, or widget area. Use the Shortcode Generator in the sidebar for more options.', 'wp-events-calendar' ); ?></p>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+        <?php elseif ( $tab === 'display' ) : ?>
             <table class="form-table">
                 <tr>
                     <th><?php esc_html_e( 'Calendar Template', 'wp-events-calendar' ); ?></th>
@@ -42,6 +99,7 @@
                                 </label>
                             <?php endforeach; ?>
                         </div>
+                        <p class="description"><?php esc_html_e( 'Choose the visual layout template used when rendering the calendar.', 'wp-events-calendar' ); ?></p>
                     </td>
                 </tr>
                 <tr>
@@ -52,11 +110,63 @@
                                 <option value="<?php echo esc_attr( $v ); ?>" <?php selected( $settings['default_view'], $v ); ?>><?php echo esc_html( $l ); ?></option>
                             <?php endforeach; ?>
                         </select>
+                        <p class="description"><?php esc_html_e( 'The view displayed initially when a visitor opens the calendar.', 'wp-events-calendar' ); ?></p>
                     </td>
                 </tr>
                 <tr>
                     <th><?php esc_html_e( 'Events Per Page', 'wp-events-calendar' ); ?></th>
-                    <td><input type="number" name="wpec_events_per_page" value="<?php echo esc_attr( $settings['events_per_page'] ); ?>" min="1" max="100" class="small-text" /></td>
+                    <td>
+                        <input type="number" name="wpec_events_per_page" value="<?php echo esc_attr( $settings['events_per_page'] ); ?>" min="1" max="100" class="small-text" />
+                        <p class="description"><?php esc_html_e( 'Number of events shown per page in List, Summary, and Photo views.', 'wp-events-calendar' ); ?></p>
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="2"><h3 style="margin-top:1.5rem;"><?php esc_html_e( 'Calendar Elements', 'wp-events-calendar' ); ?></h3></th>
+                </tr>
+                <tr>
+                    <th><?php esc_html_e( 'View Switcher', 'wp-events-calendar' ); ?></th>
+                    <td>
+                        <label>
+                            <input type="checkbox" name="wpec_show_view_switcher" value="1" <?php checked( $settings['show_view_switcher'] ); ?> />
+                            <?php esc_html_e( 'Display the view switcher buttons (Month, Week, Day, List, etc.) on the calendar toolbar', 'wp-events-calendar' ); ?>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <th><?php esc_html_e( 'Category Filter', 'wp-events-calendar' ); ?></th>
+                    <td>
+                        <label>
+                            <input type="checkbox" name="wpec_show_cat_filter" value="1" <?php checked( $settings['show_cat_filter'] ); ?> />
+                            <?php esc_html_e( 'Display the category dropdown filter on the calendar toolbar', 'wp-events-calendar' ); ?>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <th><?php esc_html_e( 'Event Venue', 'wp-events-calendar' ); ?></th>
+                    <td>
+                        <label>
+                            <input type="checkbox" name="wpec_show_venue" value="1" <?php checked( $settings['show_venue'] ); ?> />
+                            <?php esc_html_e( 'Display venue information on calendar cards and list previews', 'wp-events-calendar' ); ?>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <th><?php esc_html_e( 'Event Cost / Badge', 'wp-events-calendar' ); ?></th>
+                    <td>
+                        <label>
+                            <input type="checkbox" name="wpec_show_cost" value="1" <?php checked( $settings['show_cost'] ); ?> />
+                            <?php esc_html_e( 'Display price or Free badge on calendar cards and list previews', 'wp-events-calendar' ); ?>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <th><?php esc_html_e( 'Add to Calendar', 'wp-events-calendar' ); ?></th>
+                    <td>
+                        <label>
+                            <input type="checkbox" name="wpec_show_add_to_calendar" value="1" <?php checked( $settings['show_add_to_calendar'] ); ?> />
+                            <?php esc_html_e( 'Display "Google Calendar" and "iCal / Outlook" export buttons on single event pages', 'wp-events-calendar' ); ?>
+                        </label>
+                    </td>
                 </tr>
             </table>
 

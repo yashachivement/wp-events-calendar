@@ -9,7 +9,9 @@ class WPEC_Settings {
 
     public static function register_settings(): void {
         $options = [
+            'wpec_event_slug', 'wpec_events_page_id', 'wpec_show_past_events', 'wpec_enable_comments',
             'wpec_calendar_template', 'wpec_default_view', 'wpec_events_per_page',
+            'wpec_show_view_switcher', 'wpec_show_cat_filter', 'wpec_show_venue', 'wpec_show_cost', 'wpec_show_add_to_calendar',
             'wpec_date_format', 'wpec_time_format', 'wpec_timezone', 'wpec_week_starts_on',
             'wpec_currency', 'wpec_currency_position', 'wpec_default_map_provider',
             'wpec_google_maps_api_key', 'wpec_google_calendar_id',
@@ -32,9 +34,18 @@ class WPEC_Settings {
 
     public static function get_all(): array {
         return [
+            'event_slug'           => get_option( 'wpec_event_slug', 'event' ),
+            'events_page_id'       => (int) get_option( 'wpec_events_page_id', 0 ),
+            'show_past_events'     => (bool) get_option( 'wpec_show_past_events', true ),
+            'enable_comments'      => (bool) get_option( 'wpec_enable_comments', false ),
             'calendar_template'    => get_option( 'wpec_calendar_template', 'classic' ),
             'default_view'         => get_option( 'wpec_default_view', 'month' ),
             'events_per_page'      => (int) get_option( 'wpec_events_per_page', 10 ),
+            'show_view_switcher'   => (bool) get_option( 'wpec_show_view_switcher', true ),
+            'show_cat_filter'      => (bool) get_option( 'wpec_show_cat_filter', true ),
+            'show_venue'           => (bool) get_option( 'wpec_show_venue', true ),
+            'show_cost'            => (bool) get_option( 'wpec_show_cost', true ),
+            'show_add_to_calendar' => (bool) get_option( 'wpec_show_add_to_calendar', true ),
             'date_format'          => get_option( 'wpec_date_format', 'F j, Y' ),
             'time_format'          => get_option( 'wpec_time_format', 'g:i a' ),
             'timezone'             => get_option( 'wpec_timezone', wp_timezone_string() ),

@@ -164,6 +164,8 @@ class WPEC_Admin {
 
     private static function save_settings(): void {
         $fields = [
+            'wpec_event_slug'             => 'sanitize_title',
+            'wpec_events_page_id'         => 'absint',
             'wpec_calendar_template'      => 'sanitize_text_field',
             'wpec_default_view'           => 'sanitize_text_field',
             'wpec_events_per_page'        => 'absint',
@@ -194,10 +196,19 @@ class WPEC_Admin {
             }
         }
 
-        // Checkboxes
-        $checkboxes = [ 'wpec_booking_enabled', 'wpec_payment_enabled', 'wpec_paypal_enabled', 'wpec_paypal_sandbox', 'wpec_stripe_enabled', 'wpec_show_map_by_default' ];
-        foreach ( $checkboxes as $key ) {
-            update_option( $key, isset( $_POST[ $key ] ) ? true : false );
+        // Only update checkboxes for the active tab to prevent erasing options from other tabs
+        $current_tab = sanitize_key( $_POST['wpec_current_tab'] ?? '' );
+        $tab_checkboxes = [
+            'general' => [ 'wpec_show_past_events', 'wpec_enable_comments' ],
+            'display' => [ 'wpec_show_view_switcher', 'wpec_show_cat_filter', 'wpec_show_venue', 'wpec_show_cost', 'wpec_show_add_to_calendar' ],
+            'maps'    => [ 'wpec_show_map_by_default' ],
+            'booking' => [ 'wpec_booking_enabled', 'wpec_payment_enabled', 'wpec_paypal_enabled', 'wpec_paypal_sandbox', 'wpec_stripe_enabled' ],
+        ];
+
+        if ( isset( $tab_checkboxes[ $current_tab ] ) ) {
+            foreach ( $tab_checkboxes[ $current_tab ] as $key ) {
+                update_option( $key, isset( $_POST[ $key ] ) ? true : false );
+            }
         }
 
         WPEC_Cache::flush_calendar_caches();

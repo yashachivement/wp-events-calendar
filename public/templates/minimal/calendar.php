@@ -29,6 +29,7 @@ $views      = [ 'month', 'week', 'day', 'list', 'summary', 'photo' ];
 
         <div class="wpec-toolbar-right">
             <!-- View switcher -->
+            <?php if ( ! empty( $settings['show_view_switcher'] ) ) : ?>
             <div class="wpec-view-switcher" role="group" aria-label="<?php esc_attr_e( 'Calendar view', 'wp-events-calendar' ); ?>">
                 <?php foreach ( $views as $v ) : ?>
                     <button class="wpec-view-btn <?php echo $v === $view ? 'active' : ''; ?>"
@@ -37,9 +38,10 @@ $views      = [ 'month', 'week', 'day', 'list', 'summary', 'photo' ];
                     </button>
                 <?php endforeach; ?>
             </div>
+            <?php endif; ?>
 
             <!-- Category filter -->
-            <?php if ( ! empty( $categories ) && ! is_wp_error( $categories ) ) : ?>
+            <?php if ( ! empty( $settings['show_cat_filter'] ) && ! empty( $categories ) && ! is_wp_error( $categories ) ) : ?>
             <select class="wpec-cat-filter" aria-label="<?php esc_attr_e( 'Filter by category', 'wp-events-calendar' ); ?>">
                 <option value=""><?php esc_html_e( 'All Categories', 'wp-events-calendar' ); ?></option>
                 <?php foreach ( $categories as $cat ) : ?>

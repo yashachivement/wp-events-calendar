@@ -31,6 +31,12 @@ class WPEC_Post_Type {
             'use_featured_image'    => __( 'Use as event image', 'wp-events-calendar' ),
         ];
 
+        $slug     = sanitize_title( get_option( 'wpec_event_slug', 'event' ) ) ?: 'event';
+        $supports = [ 'title', 'editor', 'thumbnail', 'excerpt', 'revisions' ];
+        if ( get_option( 'wpec_enable_comments', false ) ) {
+            $supports[] = 'comments';
+        }
+
         $args = [
             'labels'             => $labels,
             'public'             => true,
@@ -38,12 +44,12 @@ class WPEC_Post_Type {
             'show_ui'            => true,
             'show_in_menu'       => false,  // We place it under our own menu
             'query_var'          => true,
-            'rewrite'            => [ 'slug' => 'event', 'with_front' => false ],
+            'rewrite'            => [ 'slug' => $slug, 'with_front' => false ],
             'capability_type'    => 'post',
             'has_archive'        => 'events',
             'hierarchical'       => false,
             'menu_position'      => null,
-            'supports'           => [ 'title', 'editor', 'thumbnail', 'excerpt', 'revisions' ],
+            'supports'           => $supports,
             'show_in_rest'       => true,
             'menu_icon'          => 'dashicons-calendar-alt',
         ];
