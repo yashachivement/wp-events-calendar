@@ -1,0 +1,92 @@
+/* WP Events Calendar — Admin Styles */
+:root {
+    --wpec-primary:   #3b82f6;
+    --wpec-secondary: #1e40af;
+    --wpec-success:   #10b981;
+    --wpec-warning:   #f59e0b;
+    --wpec-danger:    #ef4444;
+    --wpec-border:    #e5e7eb;
+    --wpec-bg:        #f9fafb;
+    --wpec-text:      #1f2937;
+}
+
+/* ---------- Layout ---------- */
+.wpec-admin-wrap h1 { margin-bottom: 1rem; }
+.wpec-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.wpec-card { background: #fff; border: 1px solid var(--wpec-border); border-radius: 8px; padding: 1.5rem; }
+.wpec-card h2 { margin-top: 0; font-size: 1.1rem; border-bottom: 1px solid var(--wpec-border); padding-bottom: .75rem; }
+
+/* ---------- Meta boxes ---------- */
+.wpec-meta-table { width: 100%; border-collapse: collapse; }
+.wpec-meta-table th { width: 160px; text-align: left; padding: .5rem .5rem .5rem 0; font-weight: 600; vertical-align: top; padding-top: .65rem; }
+.wpec-meta-table td { padding: .4rem 0; }
+.wpec-meta-table input[type="text"],
+.wpec-meta-table input[type="date"],
+.wpec-meta-table input[type="time"],
+.wpec-meta-table input[type="url"],
+.wpec-meta-table input[type="email"],
+.wpec-meta-table input[type="number"],
+.wpec-meta-table select,
+.wpec-meta-table textarea { border: 1px solid var(--wpec-border); border-radius: 4px; padding: .4rem .6rem; }
+.wpec-meta-table .widefat { width: 100%; }
+.wpec-date-field, .wpec-time-field { margin-right: .5rem; }
+span.required { color: var(--wpec-danger); }
+
+/* ---------- Organizer rows ---------- */
+.wpec-organizer-row { display: flex; align-items: center; gap: .75rem; padding: .4rem .6rem; background: var(--wpec-bg); border: 1px solid var(--wpec-border); border-radius: 4px; margin-bottom: .4rem; }
+.wpec-organizer-name { flex: 1; font-weight: 500; }
+.wpec-remove-organizer { color: var(--wpec-danger) !important; }
+.wpec-add-organizer-wrap { display: flex; gap: .5rem; margin-top: .5rem; }
+#wpec-org-status { font-size: .875rem; color: var(--wpec-success); }
+
+/* ---------- Meta section spacing ---------- */
+.wpec-meta-section { padding: .25rem 0; }
+
+/* ---------- Tabs (settings) ---------- */
+.wpec-tabs { margin-bottom: 0; }
+.wpec-settings-body { background: #fff; border: 1px solid #c3c4c7; border-top: none; padding: 1.5rem; }
+
+/* ---------- Template picker ---------- */
+.wpec-template-grid { display: flex; gap: 1rem; flex-wrap: wrap; }
+.wpec-template-card { display: flex; flex-direction: column; align-items: center; gap: .5rem; cursor: pointer; padding: .75rem; border: 2px solid var(--wpec-border); border-radius: 8px; transition: border-color .2s; }
+.wpec-template-card input { display: none; }
+.wpec-template-card.active, .wpec-template-card:has(input:checked) { border-color: var(--wpec-primary); }
+.wpec-template-thumb { width: 120px; height: 80px; border-radius: 4px; }
+.wpec-tpl-classic  { background: linear-gradient(135deg, #3b82f6 0%, #93c5fd 100%); }
+.wpec-tpl-modern   { background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%); }
+.wpec-tpl-minimal  { background: linear-gradient(135deg, #6b7280 0%, #d1d5db 100%); }
+
+/* ---------- Bookings ---------- */
+.wpec-bookings-toolbar { display: flex; align-items: center; gap: .75rem; margin-bottom: 1rem; }
+.wpec-status-badge { display: inline-block; padding: .2rem .6rem; border-radius: 999px; font-size: .75rem; font-weight: 600; text-transform: uppercase; }
+.wpec-payment-paid      { background: #d1fae5; color: #065f46; }
+.wpec-payment-pending   { background: #fef3c7; color: #92400e; }
+.wpec-payment-failed    { background: #fee2e2; color: #991b1b; }
+.wpec-payment-refunded  { background: #ede9fe; color: #4c1d95; }
+.wpec-payment-free      { background: #e0f2fe; color: #0369a1; }
+.wpec-booking-status-select { padding: .2rem .4rem; font-size: .85rem; }
+.wpec-free-badge { background: #d1fae5; color: #065f46; padding: .1rem .5rem; border-radius: 999px; font-size: .8rem; }
+
+/* ---------- Import / Export ---------- */
+.wpec-export-buttons { display: flex; gap: 1rem; margin: 1rem 0; }
+.wpec-ical-url { display: flex; gap: .5rem; }
+.wpec-ical-url input { flex: 1; }
+.wpec-upload-zone { border: 2px dashed var(--wpec-border); border-radius: 8px; padding: 2rem; text-align: center; margin: .75rem 0; cursor: pointer; transition: border-color .2s, background .2s; }
+.wpec-upload-zone:hover { border-color: var(--wpec-primary); background: #eff6ff; }
+.wpec-upload-zone span { font-size: 2rem; display: block; margin-bottom: .5rem; }
+.wpec-upload-zone p { margin: .25rem 0 .75rem; color: #6b7280; }
+.wpec-import-result { margin-top: 1rem; }
+
+/* ---------- Shortcode generator ---------- */
+.wpec-shortcode-output { display: flex; gap: .75rem; align-items: center; margin: 1rem 0; }
+.wpec-shortcode-output code { flex: 1; padding: .75rem 1rem; background: #f3f4f6; border-radius: 6px; font-size: .95rem; word-break: break-all; }
+
+/* ---------- Badges ---------- */
+.wpec-badge { display: inline-flex; align-items: center; gap: .3rem; padding: .3rem .8rem; border-radius: 999px; font-size: .85rem; font-weight: 600; }
+.wpec-badge-success { background: #d1fae5; color: #065f46; }
+.wpec-badge-warning { background: #fef3c7; color: #92400e; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+    .wpec-two-col { grid-template-columns: 1fr; }
+}

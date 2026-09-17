@@ -1,0 +1,37 @@
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# IDE & Editor Files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# Developer Tooling & Scratch
+.kilo/
+scratch/
+
+# Logs & Debugging
+*.log
+debug.log
+error_log
+
+# Archives & Distribution Builds
+*.zip
+*.tar.gz
+*.rar
+
+# Dependencies (if added in the future)
+node_modules/
+vendor/
+
